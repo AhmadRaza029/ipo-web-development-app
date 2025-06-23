@@ -43,7 +43,12 @@ export function AppSidebar() {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const isActive = (path: string) => currentPath === path;
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return currentPath === '/';
+    }
+    return currentPath === path;
+  };
   const isCollapsed = state === 'collapsed';
 
   return (
@@ -70,14 +75,14 @@ export function AppSidebar() {
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton 
+                    asChild 
+                    isActive={isActive(item.url)}
+                    className="w-full"
+                  >
                     <NavLink 
-                      to={item.url} 
-                      className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm ${
-                        isActive(item.url) 
-                          ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' 
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`}
+                      to={item.url}
+                      className="flex items-center space-x-3 w-full"
                     >
                       <item.icon className="h-5 w-5" />
                       {!isCollapsed && <span>{item.title}</span>}
@@ -97,14 +102,14 @@ export function AppSidebar() {
             <SidebarMenu>
               {otherItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton 
+                    asChild 
+                    isActive={isActive(item.url)}
+                    className="w-full"
+                  >
                     <NavLink 
-                      to={item.url} 
-                      className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm ${
-                        isActive(item.url) 
-                          ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' 
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`}
+                      to={item.url}
+                      className="flex items-center space-x-3 w-full"
                     >
                       <item.icon className="h-5 w-5" />
                       {!isCollapsed && <span>{item.title}</span>}
