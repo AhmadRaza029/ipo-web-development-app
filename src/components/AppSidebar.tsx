@@ -39,20 +39,21 @@ const otherItems = [
 ];
 
 export function AppSidebar() {
-  const { collapsed } = useSidebar();
+  const { state } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
 
   const isActive = (path: string) => currentPath === path;
+  const isCollapsed = state === 'collapsed';
 
   return (
-    <Sidebar className={collapsed ? "w-14" : "w-60"} collapsible>
+    <Sidebar className={isCollapsed ? "w-14" : "w-60"} collapsible="icon">
       <SidebarHeader className="p-4">
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
             <Building2 className="h-5 w-5 text-white" />
           </div>
-          {!collapsed && (
+          {!isCollapsed && (
             <div>
               <h2 className="text-sm font-semibold text-blue-600">Bluestock Fintech</h2>
             </div>
@@ -63,7 +64,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs text-gray-500 uppercase tracking-wider">
-            {!collapsed && 'MENU'}
+            {!isCollapsed && 'MENU'}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -79,7 +80,7 @@ export function AppSidebar() {
                       }`}
                     >
                       <item.icon className="h-5 w-5" />
-                      {!collapsed && <span>{item.title}</span>}
+                      {!isCollapsed && <span>{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -90,7 +91,7 @@ export function AppSidebar() {
 
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs text-gray-500 uppercase tracking-wider">
-            {!collapsed && 'OTHERS'}
+            {!isCollapsed && 'OTHERS'}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -106,7 +107,7 @@ export function AppSidebar() {
                       }`}
                     >
                       <item.icon className="h-5 w-5" />
-                      {!collapsed && <span>{item.title}</span>}
+                      {!isCollapsed && <span>{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
