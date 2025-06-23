@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,11 +14,8 @@ import APIManager from "./pages/APIManager";
 import Accounts from "./pages/Accounts";
 import Help from "./pages/Help";
 import NotFound from "./pages/NotFound";
-
 const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
+const App = () => <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
@@ -32,14 +28,10 @@ const App = () => (
                 <SidebarTrigger className="mr-4" />
                 <div className="flex-1 flex items-center justify-between">
                   <div className="flex items-center space-x-4">
-                    <input
-                      type="text"
-                      placeholder="Search"
-                      className="px-3 py-1 border border-gray-300 rounded-md text-sm w-64"
-                    />
+                    <input type="text" placeholder="Search" className="px-3 py-1 border border-gray-300 rounded-md text-sm w-64" />
                   </div>
                   <div className="flex items-center space-x-3">
-                    <span className="text-sm text-gray-600">Hi, Vichal</span>
+                    <span className="text-sm text-gray-600">Hi, Vishal</span>
                     <div className="w-8 h-8 bg-orange-400 rounded-full"></div>
                   </div>
                 </div>
@@ -62,7 +54,5 @@ const App = () => (
         </SidebarProvider>
       </BrowserRouter>
     </TooltipProvider>
-  </QueryClientProvider>
-);
-
+  </QueryClientProvider>;
 export default App;
