@@ -8,6 +8,12 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import Index from "./pages/Index";
 import ManageIPO from "./pages/ManageIPO";
+import IPOSubscription from "./pages/IPOSubscription";
+import IPOAllotment from "./pages/IPOAllotment";
+import Settings from "./pages/Settings";
+import APIManager from "./pages/APIManager";
+import Accounts from "./pages/Accounts";
+import Help from "./pages/Help";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -42,12 +48,12 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/manage-ipo" element={<ManageIPO />} />
-                  <Route path="/ipo-subscription" element={<div className="p-8"><h1>IPO Subscription</h1></div>} />
-                  <Route path="/ipo-allotment" element={<div className="p-8"><h1>IPO Allotment</h1></div>} />
-                  <Route path="/settings" element={<div className="p-8"><h1>Settings</h1></div>} />
-                  <Route path="/api-manager" element={<div className="p-8"><h1>API Manager</h1></div>} />
-                  <Route path="/accounts" element={<div className="p-8"><h1>Accounts</h1></div>} />
-                  <Route path="/help" element={<div className="p-8"><h1>Help</h1></div>} />
+                  <Route path="/ipo-subscription" element={<IPOSubscription />} />
+                  <Route path="/ipo-allotment" element={<IPOAllotment />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/api-manager" element={<APIManager />} />
+                  <Route path="/accounts" element={<Accounts />} />
+                  <Route path="/help" element={<Help />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
