@@ -263,6 +263,6 @@ For support and questions:
 
 ---
 
-**Built with ❤️ by Bluestock Fintech**
+**Built for Bluestock Fintech**
 
 For more information about IPO investments and market analysis, visit our main platform.
