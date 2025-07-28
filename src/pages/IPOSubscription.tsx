@@ -5,10 +5,35 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, DollarSign, TrendingUp } from 'lucide-react';
 
+type IPOStatus = 'Open' | 'Upcoming' | 'Closed';
+
+interface IPO {
+  id: string;
+  companyName: string;
+  priceRange: string;
+  lotSize: number;
+  openDate: string;
+  closeDate: string;
+  status: IPOStatus;
+  subscriptionRate: string;
+}
+
+const getStatusColor = (status: IPOStatus) => {
+  switch (status) {
+    case 'Open':
+      return 'bg-green-100 text-green-800';
+    case 'Upcoming':
+      return 'bg-blue-100 text-blue-800';
+    case 'Closed':
+    default:
+      return 'bg-gray-100 text-gray-800';
+  }
+};
+
 const IPOSubscription = () => {
   const [selectedIPO, setSelectedIPO] = useState<string | null>(null);
 
-  const availableIPOs = [
+  const availableIPOs: IPO[] = [
     {
       id: '1',
       companyName: 'TechCorp Solutions',
@@ -17,7 +42,7 @@ const IPOSubscription = () => {
       openDate: '2024-01-15',
       closeDate: '2024-01-17',
       status: 'Open',
-      subscriptionRate: '2.5x'
+      subscriptionRate: '2.5x',
     },
     {
       id: '2',
@@ -27,7 +52,7 @@ const IPOSubscription = () => {
       openDate: '2024-01-20',
       closeDate: '2024-01-22',
       status: 'Upcoming',
-      subscriptionRate: 'N/A'
+      subscriptionRate: 'N/A',
     },
     {
       id: '3',
@@ -37,18 +62,21 @@ const IPOSubscription = () => {
       openDate: '2024-01-10',
       closeDate: '2024-01-12',
       status: 'Closed',
-      subscriptionRate: '4.2x'
-    }
+      subscriptionRate: '4.2x',
+    },
   ];
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Open': return 'bg-green-100 text-green-800';
-      case 'Upcoming': return 'bg-blue-100 text-blue-800';
-      case 'Closed': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
+  const handleApply = (ipo: IPO) => {
+    if (ipo.status !== 'Open') return;
+    alert(`Applying for ${ipo.companyName}`);
+    // Place API call or logic here
   };
+
+  const handleViewDetails = (ipo: IPO) => {
+    setSelectedIPO(ipo.id === selectedIPO ? null : ipo.id);
+  };
+
+  const selectedIPOData = availableIPOs.find((ipo) => ipo.id === selectedIPO);
 
   return (
     <div className="p-6">
@@ -75,9 +103,7 @@ const IPOSubscription = () => {
                     </span>
                   </CardDescription>
                 </div>
-                <Badge className={getStatusColor(ipo.status)}>
-                  {ipo.status}
-                </Badge>
+                <Badge className={getStatusColor(ipo.status)}>{ipo.status}</Badge>
               </div>
             </CardHeader>
             <CardContent>
@@ -104,19 +130,31 @@ const IPOSubscription = () => {
                   </div>
                 </div>
               </div>
+
               <div className="mt-4 flex gap-2">
-                <Button 
+                <Button
                   variant={ipo.status === 'Open' ? 'default' : 'outline'}
                   disabled={ipo.status !== 'Open'}
                   className="flex-1"
+                  onClick={() => handleApply(ipo)}
+                  aria-disabled={ipo.status !== 'Open'}
                 >
-                  {ipo.status === 'Open' ? 'Apply Now' : 
-                   ipo.status === 'Upcoming' ? 'Coming Soon' : 'Closed'}
+                  {ipo.status === 'Open' ? 'Apply Now' : ipo.status === 'Upcoming' ? 'Coming Soon' : 'Closed'}
                 </Button>
-                <Button variant="outline">
-                  View Details
+                <Button variant="outline" className="flex-1" onClick={() => handleViewDetails(ipo)}>
+                  {selectedIPO === ipo.id ? 'Hide Details' : 'View Details'}
                 </Button>
               </div>
+
+              {selectedIPO === ipo.id && (
+                <div className="mt-4 p-4 border border-gray-200 rounded-md bg-gray-50">
+                  <h3 className="text-lg font-semibold mb-2">More Details about {ipo.companyName}</h3>
+                  {/* Example extra details, you can expand as needed */}
+                  <p><strong>Lot Size:</strong> {ipo.lotSize}</p>
+                  <p><strong>Subscription Rate:</strong> {ipo.subscriptionRate}</p>
+                  <p><strong>Subscription Period:</strong> {ipo.openDate} to {ipo.closeDate}</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         ))}
@@ -126,3 +164,4 @@ const IPOSubscription = () => {
 };
 
 export default IPOSubscription;
+
